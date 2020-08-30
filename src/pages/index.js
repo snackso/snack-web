@@ -1,22 +1,48 @@
-import React from "react"
-import { Link } from "gatsby"
+import React, { Component } from 'react'
+import Navigation from '../components/navigation';
+import Header from '../components/header';
+import Features from '../components/features';
+import About from '../components/about';
+import Services from '../components/services';
+import Gallery from '../components/gallery';
+import Testimonials from '../components/testimonials';
+import Team from '../components/Team';
+import Contact from '../components/contact';
+import JsonData from '../data/data.json';
+import "../../static/css/bootstrap.css"
+import "../../static/css/style.css"
+import "../../static/css/nivo-lightbox/nivo-lightbox.css"
+import "../../static/css/nivo-lightbox/default.css"
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+// <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css">
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-  </Layout>
-)
+export class App extends Component {
+  state = {
+    landingPageData: {},
+  }
+  getlandingPageData() {
+    this.setState({ landingPageData: JsonData })
+  }
 
-export default IndexPage
+  componentDidMount() {
+    this.getlandingPageData();
+  }
+
+  render() {
+    return (
+      <div>
+        <Navigation />
+        <Header data={this.state.landingPageData.Header} />
+        <Features data={this.state.landingPageData.Features} />
+        <About data={this.state.landingPageData.About} />
+        <Services data={this.state.landingPageData.Services} />
+        <Gallery />
+        <Testimonials data={this.state.landingPageData.Testimonials} />
+        <Team data={this.state.landingPageData.Team} />
+        <Contact data={this.state.landingPageData.Contact} />
+      </div>
+    )
+  }
+}
+
+export default App;
